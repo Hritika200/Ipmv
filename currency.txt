@@ -1,0 +1,21 @@
+function final = ocr_in_simulink(image)
+    gray_image = im2gray(image);
+
+    % Resize the grayscale image 
+    resized_image = imresize(gray_image, 0.5);
+    binary_image = imbinarize(resized_image);
+
+    % Perform OCR on the binary image
+    txt1 = ocr(binary_image, 'CharacterSet', '0125', 'TextLayout', 'Block');
+
+    % Extract the text from the OCR results
+    extracted_text = {txt1.Text}; % Convert to cell array
+
+    % Concatenate all extracted text
+    final1 = strjoin(extracted_text, '');
+    final1 = string(final1);
+    
+    
+    disp(final1);
+    final = str2double(final1);
+end
